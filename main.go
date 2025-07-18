@@ -1,0 +1,100 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/gin-gonic/gin"
+)
+
+type Todo struct {
+	Id   int
+	Task string
+	Done bool
+}
+
+// created a instance of this struct
+var tasks []Todo
+
+func writeTask(c *gin.Context) {
+	var task Todo
+	err := c.ShouldBindJSON(&task)
+	//error handling
+	if errHandle(c, err) {
+		return
+	}
+
+	tasks = append(tasks, task)
+}
+
+func errHandle(c *gin.Context, err error) bool {
+	if err != nil {
+		c.JSON(400, gin.H{
+			"Error": err,
+		})
+		return true
+	}
+	return false
+}
+
+func deleteTask(c *gin.Context) {
+	type upt struct {
+		Id int
+	}
+	var del upt
+	err := c.ShouldBindJSON(&del)
+
+	//error handling
+	if errHandle(c, err) {
+		return
+	}
+
+	for i := range tasks {
+		if tasks[i].Id == del.Id {
+			//if task is done , delete from slice
+			tasks = append(tasks[:i], tasks[i+1:]...)
+			return
+		}
+	}
+	c.JSON(404, gin.H{
+		"message": "Task not found !!",
+	})
+}
+
+func updateTask(c *gin.Context) {
+	var input Todo
+	err := c.ShouldBindJSON(&input)
+
+	//error handling
+	if errHandle(c, err) {
+		return
+	}
+
+	for i := range tasks {
+		if tasks[i].Id == input.Id {
+			//updating the task
+			tasks[i] = input
+			return
+		}
+	}
+	c.JSON(404, gin.H{
+		"message": "Task Id not found",
+	})
+
+}
+
+func fetchTask(c *gin.Context) {
+	c.JSON(200, tasks)
+}
+
+func main() {
+	fmt.Println("Welcome to this server")
+	//starting Gin
+	r := gin.Default()
+
+	r.POST("/add", writeTask)
+	r.GET("/", fetchTask)
+	r.PUT("/update", updateTask)
+	r.DELETE("/delete", deleteTask)
+	r.Run(":8000")
+
+}
