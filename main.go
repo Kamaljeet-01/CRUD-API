@@ -12,9 +12,21 @@ type Todo struct {
 	Done bool
 }
 
-// created a instance of this struct
+// created a slice of data-type : ToDo (to store the tasks)
 var tasks []Todo
 
+//Error handling function
+func errHandle(c *gin.Context, err error) bool {
+	if err != nil {
+		c.JSON(400, gin.H{
+			"Error": err,
+		})
+		return true
+	}
+	return false
+}
+
+//POST
 func writeTask(c *gin.Context) {
 	var task Todo
 	err := c.ShouldBindJSON(&task)
@@ -26,17 +38,9 @@ func writeTask(c *gin.Context) {
 	tasks = append(tasks, task)
 }
 
-func errHandle(c *gin.Context, err error) bool {
-	if err != nil {
-		c.JSON(400, gin.H{
-			"Error": err,
-		})
-		return true
-	}
-	return false
-}
-
+//DELETE
 func deleteTask(c *gin.Context) {
+	//defined the struct inside this function because, we don't need this anymore after this function ends.
 	type upt struct {
 		Id int
 	}
@@ -60,6 +64,8 @@ func deleteTask(c *gin.Context) {
 	})
 }
 
+
+//PUT
 func updateTask(c *gin.Context) {
 	var input Todo
 	err := c.ShouldBindJSON(&input)
@@ -82,6 +88,7 @@ func updateTask(c *gin.Context) {
 
 }
 
+//GET
 func fetchTask(c *gin.Context) {
 	c.JSON(200, tasks)
 }
