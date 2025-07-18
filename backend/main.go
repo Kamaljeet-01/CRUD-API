@@ -15,7 +15,7 @@ type Todo struct {
 // created a slice of data-type : ToDo (to store the tasks)
 var tasks []Todo
 
-//Error handling function
+// Error handling function
 func errHandle(c *gin.Context, err error) bool {
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -26,7 +26,7 @@ func errHandle(c *gin.Context, err error) bool {
 	return false
 }
 
-//POST
+// POST
 func writeTask(c *gin.Context) {
 	var task Todo
 	err := c.ShouldBindJSON(&task)
@@ -38,7 +38,7 @@ func writeTask(c *gin.Context) {
 	tasks = append(tasks, task)
 }
 
-//DELETE
+// DELETE
 func deleteTask(c *gin.Context) {
 	//defined the struct inside this function because, we don't need this anymore after this function ends.
 	type upt struct {
@@ -64,8 +64,7 @@ func deleteTask(c *gin.Context) {
 	})
 }
 
-
-//PUT
+// PUT
 func updateTask(c *gin.Context) {
 	var input Todo
 	err := c.ShouldBindJSON(&input)
@@ -88,7 +87,7 @@ func updateTask(c *gin.Context) {
 
 }
 
-//GET
+// GET
 func fetchTask(c *gin.Context) {
 	c.JSON(200, tasks)
 }
@@ -98,10 +97,14 @@ func main() {
 	//starting Gin
 	r := gin.Default()
 
+	r.Static("/static", "../frontend")
+	r.StaticFile("/", "../frontend/index.html")
+
 	r.POST("/add", writeTask)
-	r.GET("/", fetchTask)
+	r.GET("/show", fetchTask)
 	r.PUT("/update", updateTask)
 	r.DELETE("/delete", deleteTask)
+
 	r.Run(":8000")
 
 }
