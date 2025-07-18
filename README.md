@@ -8,9 +8,7 @@ This project is ideal for learning how frontend and backend communicate using RE
 
 ## 📸 Homepage Screenshot
 
-![Homepage](./Screenshot 2025-07-18 151229.png)
-
-> 💡 Place your actual screenshot in the `screenshots/` folder and name it `homepage.png`.
+![Screenshot](./Screenshot 2025-07-18 151229.png)
 
 ---
 
