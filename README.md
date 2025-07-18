@@ -8,7 +8,7 @@ This project is ideal for learning how frontend and backend communicate using RE
 
 ## 📸 Homepage Screenshot
 
-![Screenshot](https://raw.githubusercontent.com/username/repo/main/Screenshot 2025-07-18 151229.png)
+![Screenshot](https://raw.githubusercontent.com/kamaljeet-01/CRUD-API/main/Screenshot 2025-07-18 151229.png)
 
 ---
 
