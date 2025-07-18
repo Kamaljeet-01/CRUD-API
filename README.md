@@ -27,19 +27,19 @@ This project is ideal for learning how frontend and backend communicate using RE
 
 ## 🧾 Project Folder Structure
 
-todo/
-├── backend/
-│ ├── main.go # Go server code
-│ ├── go.mod
-│ └── go.sum
-│
-├── frontend/
-│ ├── index.html # Web interface
-│ ├── style.css # Styling
-│ └── script.js # JavaScript logic
-│
-└── screenshots/
-└── homepage.png # Screenshot of homepage
+- todo/
+- ├── backend/
+- │ ├── main.go # Go server code
+- │ ├── go.mod
+- │ └── go.sum
+- │
+- ├── frontend/
+- │ ├── index.html # Web interface
+- │ ├── style.css # Styling
+- │ └── script.js # JavaScript logic
+- │
+- └── screenshots/
+- └── homepage.png # Screenshot of homepage
 
 
 ---
